@@ -4,6 +4,7 @@
 % Page size
 \usepackage[
     letterpaper,]{geometry}
+\usepackage{changepage}
 
 % Lines between paragraphs
 \setlength{\parskip}{\baselineskip}
@@ -58,12 +59,60 @@ $f * f * f$ over a suitable interval. Notice how the smoothness improves
 as we take more convolutions.
 
 \textit{Solution.}
+First I will assume that $f: \T \to \C$. We'll start by computing
+$f * f$:
+%
+\begin{align*}
+    (f * f)(t)
+        &= \frac{1}{2 \pi} \int_{-\pi}^\pi f(y) f(t - y) \dif y \\
+        &= \frac{1}{2 \pi} \int_{-\pi}^\pi \chi_{[0, 1]}(y) \chi_{[0, 1]}(t - y) \dif y \\
+        &= \frac{1}{2 \pi} \int_0^1 \chi_{[0, 1]}(t - y) \dif y \\
+        &= \frac{1}{2 \pi} \int_0^1 \chi_{[0, 1]}(t - y) \dif y \\
+    .
+\end{align*}
+????
 
 \newpage
 
 4.17. Show that if $f$ is integrable and $P \in \Pc_N$, then $f * P \in \Pc_N$.
 
 \textit{Solution.}
+If $P \in \Pc_N(\T)$ then we can express
+%
+\begin{equation*}
+    \sum_{|n| \leq N} a_n e^{i n \theta}
+\end{equation*}
+%
+for some set of coefficients $\cbr{a_n}_{n \in \N} \subset \C$. Because
+$f$ is integrable we have that
+%
+\begin{equation*}
+    \envert{\int_{-\pi}^\pi f(y) e^{-i n y} \dif y}
+    \leq \int_{-\pi}^\pi |f(y)| |e^{-i n y}| \dif y
+    = \int_{-\pi}^\pi |f(y)| \dif y
+    < \infty
+    .
+\end{equation*}
+%
+Define
+%
+\begin{equation*}
+    c_n \coloneqq \frac{1}{2 \pi} a_n \int_{-\pi}^\pi f(y) e^{-i n y} \dif y
+    ,
+\end{equation*}
+%
+each of which is finite as shown by our calculation above. Then we have that
+%
+\begin{align*}
+    (f * P) (\theta)
+        &= \frac{1}{2 \pi} \int_{-\pi}^\pi f(y) P(\theta - y) \dif y \\
+        &= \frac{1}{2 \pi} \int_{-\pi}^\pi f(y) \del{\sum_{|n| \leq N} a_n e^{i n (\theta - y)}} \dif y \\
+        &= \frac{1}{2 \pi} \sum_{|n| \leq N} \del{a_n  \int_{-\pi}^\pi f(y) e^{-i n y} \dif y} e^{i n \theta} \\
+        &= \sum_{|n| \leq N} c_n e^{i n \theta}
+        .
+\end{align*}
+%
+Clearly we have that $f * P \in \Pc_N$.
 
 \newpage
 
@@ -73,6 +122,101 @@ Let $K_n \coloneqq n K(n \theta)$ for $- \pi \leq \theta \leq \pi$. Verify
 that $\cbr{K_n}_{n \geq 1}$ is a family of good kernels on $\T$.
 
 \textit{Solution.}
+For $\cbr{K_n}_{n \geq 1}$ to be a family of good kernels on $\T$ we require
+
+\begin{adjustwidth}{2.5em}{0pt}
+    (a) For all $n \in \N$, $\frac{1}{2 \pi} \int_{- \pi}^\pi K_n(\theta) \dif \theta = 1$;
+
+    (b) There exists $M > 0$ so that
+    $\int_{- \pi}^\pi |K_n(\theta)| \dif \theta \leq M$ for all $n \in \N$;
+
+    (c) For each $\delta > 0$,
+    $\int_{\delta \leq |\theta| \leq \pi} |K_n(\theta)| \dif \theta \to 0$ as $n \to \infty$.
+\end{adjustwidth}
+
+For property (a) we have that
+%
+\begin{align*}
+    \frac{1}{2 \pi} \int_{- \pi}^\pi K_n(\theta) \dif \theta
+        &= \frac{1}{2 \pi} \int_{- \pi}^\pi n K(n \theta) \dif \theta \\
+        &= \frac{1}{2 \pi} \int_{- n \pi}^{n \pi} K(x) \dif x \\
+        &= \frac{1}{2 \pi} \int_{-\pi}^{\pi} K(x) \dif x \\
+        &= \frac{1}{2 \pi} \cdot 2 \pi = 1
+        ,
+\end{align*}
+%
+where in the second line we used the substitution $x = n \theta$ and in
+the third line we used that $K(\theta) = 0$ for $|\theta| \geq \pi$.
+
+For property (b) we use that $K$ is integrable on $[-\pi, \pi]$ (because
+it is continuous and the interval is closed) and hence there exists a
+constant $M > 0$ such that
+%
+\begin{equation*}
+    \int_{- \pi}^\pi |K(\theta)| \dif \theta < M
+    .
+\end{equation*}
+%
+Then we have for all $n \in \N$ that, using the same tricks we used
+in proving property (a),
+%
+\begin{align*}
+    \int_{- \pi}^\pi |K_n(\theta)| \dif \theta
+        &= \int_{- \pi}^\pi |n K(n \theta)| \dif \theta \\
+        &= \int_{- \pi}^\pi n |K(n \theta)| \dif \theta \\
+        &= \int_{- n \pi}^{n \pi} |K(x)| \dif x \\
+        &= \int_{-\pi}^{\pi} |K(x)| \dif x < M
+        ,
+\end{align*}
+%
+which proves property (b).
+
+For property (c), fix any $\delta > 0$. Then we have that
+%
+\begin{align*}
+    \int_{\delta \leq |\theta| \leq \pi} |K_n(\theta)| \dif \theta
+        &=
+        \int_{- \pi}^{-\delta} |K_n(\theta)| \dif \theta
+        +
+        \int_{\delta}^{\pi} |K_n(\theta)| \dif \theta
+        \\
+        &=
+        \int_{- \pi}^{-\delta} |n K(n \theta)| \dif \theta
+        +
+        \int_{\delta}^{\pi} |n K(n \theta)| \dif \theta
+        \\
+        &=
+        \int_{- \pi}^{-\delta} n |K(n \theta)| \dif \theta
+        +
+        \int_{\delta}^{\pi} n |K(n \theta)| \dif \theta
+        \\
+        &=
+        \int_{- n \pi}^{-n \delta} |K(x)| \dif x
+        +
+        \int_{n \delta}^{n \pi} |K(x)| \dif x
+    .
+\end{align*}
+%
+By taking $n$ sufficiently large, we can guarantee that
+%
+\begin{equation*}
+    \del{[- n \pi, - n \delta] \cup [n \delta, n \pi]} \cap [- \pi, \pi] = \emptyset
+    .
+\end{equation*}
+%
+and hence $K$ is zero within our limits of integration above if we take
+$n$ large enough (recall that $K$ is zero outside of $[- \pi, \pi]$). Therefore
+%
+\begin{equation*}
+    \int_{\delta \leq |\theta| \leq \pi} |K_n(\theta)| \dif \theta
+        =
+        \int_{- n \pi}^{-n \delta} |K(x)| \dif x
+        +
+        \int_{n \delta}^{n \pi} |K(x)| \dif x
+        = 0 + 0 = 0
+\end{equation*}
+%
+as $n \to \infty$. This proves property (c).
 
 \newpage
 
@@ -80,6 +224,8 @@ that $\cbr{K_n}_{n \geq 1}$ is a family of good kernels on $\T$.
 $\sigma_N f = F_N * f$.
 
 \textit{Solution.}
+To show that $F_N$ is a good kernel we need to prove the three
+properties listed in the solution to the previous question (4.22).
 
 \newpage
 
