@@ -67,10 +67,112 @@ $f * f$:
         &= \frac{1}{2 \pi} \int_{-\pi}^\pi f(y) f(t - y) \dif y \\
         &= \frac{1}{2 \pi} \int_{-\pi}^\pi \chi_{[0, 1]}(y) \chi_{[0, 1]}(t - y) \dif y \\
         &= \frac{1}{2 \pi} \int_0^1 \chi_{[0, 1]}(t - y) \dif y \\
-        &= \frac{1}{2 \pi} \int_0^1 \chi_{[0, 1]}(t - y) \dif y \\
+        &= \frac{1}{2 \pi} \int_{t - 1}^t \chi_{[0, 1]}(x) \dif x
     .
 \end{align*}
-????
+%
+I'm not sure how to prove this explicitly, but visualizing
+$\int_{t - 1}^t \chi_{[0, 1]}(x) \dif x$ we see that this is the
+integration of $1$ over the intersection of intervals
+$[0, 1] \cap [t - 1, t]$, so
+%
+\begin{align*}
+    (f * f)(t)
+        &= \frac{1}{2 \pi} \int_{[0, 1] \cap [t - 1, t]} \dif y \\
+        &= \frac{1}{2 \pi} \cdot
+        \begin{dcases}
+            t, & 0 \leq t \leq 1 \\
+            2 - t, & 1 < t \leq 2 \\
+            0, & \text{otherwise}
+        \end{dcases}
+        .
+\end{align*}
+%
+Taking another convolution, we have
+%
+\begin{align*}
+    (f * f * f)(t)
+        &= (f * (f * f))(t) \\
+        &= \frac{1}{2 \pi} \int_{-\pi}^\pi f(y) (f * f)(t - y) \dif y \\
+        &= \frac{1}{2 \pi} \int_{-\pi}^\pi \chi_{[0, 1]}(y) (f * f)(t - y) \dif y \\
+        &= \frac{1}{2 \pi} \int_0^1 (f * f)(t - y) \dif y \\
+        &= \frac{1}{2 \pi} \int_{t - 1}^t (f * f)(x) \dif x
+        .
+\end{align*}
+%
+Now we consider a number of cases. If $0 \leq t \leq 1$ then
+%
+\begin{equation*}
+    (f * f * f)(t)
+        = \frac{1}{2 \pi} \int_{0}^t x \dif x
+        = \frac{1}{4 \pi} t^2
+        .
+\end{equation*}
+%
+If $1 < t \leq 2$ then
+%
+\begin{equation*}
+    (f * f * f)(t)
+        =
+        \frac{1}{2 \pi}
+        \del{
+            \int_{t - 1}^1 x \dif x
+            +
+            \int_{1}^t 2 - x \dif x
+        }
+        =
+        \frac{1}{2 \pi}
+        \del{
+            - t^2 + 3 t - \frac{3}{2}
+        }
+        .
+\end{equation*}
+%
+If $2 < t \leq 3$ then
+%
+\begin{equation*}
+    (f * f * f)(t)
+        =
+        \frac{1}{2 \pi}
+        \int_{t - 1}^2 2 - x \dif x
+        =
+        \frac{1}{4 \pi}
+        (t - 3)^2
+        .
+\end{equation*}
+%
+Hence, to summarize we have
+%
+\begin{equation*}
+    (f * f * f)(t)
+        =
+        \begin{dcases}
+            \frac{1}{4 \pi} t^2, & 0 \leq t \leq 1 \\
+            \frac{1}{2 \pi}
+            \del{
+                - t^2 + 3 t - \frac{3}{2}
+            }, & 1 < t \leq 2 \\
+            \frac{1}{4 \pi}
+            (t - 3)^2, & 2 < t \leq 3 \\
+            0, & \text{otherwise}
+        \end{dcases}
+        .
+\end{equation*}
+%
+We plot $f$ (scaled by $1 / 2 \pi$), $f * f$, and $f * f * f$ in Figure~\ref{fig:4-8}. We can
+see that convolutions add smoothness in this case. The code to produce
+this plot is available in Listing~\ref{lst:1}.
+
+\begin{figure}[!ht]
+    \includegraphics[width=5in]{q48}
+    \centering
+    \caption{Convolutions of $f$}
+    \label{fig:4-8}
+\end{figure}
+
+\newpage
+
+\lstinputlisting[caption={Code to generate plot},captionpos=b,label={lst:1}]{./code/q48.m}
 
 \newpage
 
@@ -171,7 +273,8 @@ in proving property (a),
 %
 which proves property (b).
 
-For property (c), fix any $\delta > 0$. Then we have that
+For property (c), fix any $\delta > 0$ with $\delta \leq \pi$. Then we
+have that
 %
 \begin{align*}
     \int_{\delta \leq |\theta| \leq \pi} |K_n(\theta)| \dif \theta
@@ -226,6 +329,102 @@ $\sigma_N f = F_N * f$.
 \textit{Solution.}
 To show that $F_N$ is a good kernel we need to prove the three
 properties listed in the solution to the previous question (4.22).
+The kernel $F_N$ is given by
+%
+\begin{equation*}
+    F_N(\theta) \coloneqq \frac{1}{N} \sum_{n = 0}^{N - 1} D_n (\theta)
+    ,
+\end{equation*}
+%
+where $D_n$ is the $n$th Dirichlet kernel. In part (c) we'll use the
+following expression of $F_N$ from the course textbook:
+%
+\begin{equation}
+    F_N(\theta) = \frac{1}{N} \sbr{\frac{\sin \del{\frac{N \theta}{2}}}{\sin \del{\frac{\theta}{2}}}}^2
+    \label{eq:431z}
+    .
+\end{equation}
+%
+For property (a) we'll use Theorem 4.3 from the course textbook, which tells us
+that
+%
+\begin{equation*}
+    \int_{- \pi}^\pi D_N(\theta) \dif \theta = 2 \pi
+\end{equation*}
+%
+for all $N \geq 0$. Thus
+%
+\begin{align*}
+    \frac{1}{2 \pi} \int_{- \pi}^\pi F_N(\theta) \dif \theta
+        &= \frac{1}{2 \pi} \int_{- \pi}^\pi
+            \frac{1}{N} \sum_{n = 0}^{N - 1} D_n(\theta)
+            \dif \theta \\
+        &= \frac{1}{2 \pi} \frac{1}{N} \sum_{n = 0}^{N - 1}
+            \int_{- \pi}^\pi D_n(\theta) \dif \theta \\
+        &= \frac{1}{2 \pi} \frac{1}{N} \sum_{n = 0}^{N - 1} 2 \pi \\
+        &= \frac{1}{2 \pi} \frac{1}{N} N 2 \pi \\
+        &= 1
+        ,
+\end{align*}
+%
+which proves property (a).
+
+Noting that $|F_N(\theta)| = F_N(\theta)$ (this can be seen clearly
+from~\eqref{eq:431z}), property (b) follows directly from property (a).
+
+For property (c), fix $\delta > 0$ where $\delta \leq \pi$. For
+this proof we'll use two facts. The first fact is that for all
+$x \in \R$
+%
+\begin{equation}
+    \sin^2(x) \leq 1
+    \label{eq:431a}
+\end{equation}
+%
+The second fact is that for all $\theta \in [\delta, \pi]$,
+%
+\begin{equation}
+    \frac{1}{\sin^2 \del{\frac{\theta}{2}}}
+    \leq \frac{1}{\sin^2 \del{\frac{\delta}{2}}}
+    \label{eq:431b}
+    .
+\end{equation}
+%
+This is because for all $\theta_1, \theta_2 \in [0, \pi/2]$,
+if $\theta_1 \leq \theta_2$ then $\sin(\theta_1) \leq \sin(\theta_2)$.
+In our fact above we have that
+$\frac{\theta}{2}, \frac{\delta}{2} \in [0, \pi / 2]$,
+and $\frac{\delta}{2} \leq \frac{\theta}{2}$, so
+$\sin (\frac{\delta}{2}) \leq \sin (\frac{\theta}{2})$. After taking
+reciprocals and squaring, we obtain~\eqref{eq:431b}.
+
+Now to prove property (c), we have
+%
+\begin{align*}
+    \int_{\delta \leq |\theta| \leq \pi} |F_N(\theta)| \dif \theta
+        &= \int_{\delta \leq |\theta| \leq \pi} F_N(\theta) \dif \theta \\
+        &= \int_{\delta \leq |\theta| \leq \pi}
+            \frac{1}{N} \sbr{\frac{\sin \del{\frac{N \theta}{2}}}{\sin \del{\frac{\theta}{2}}}}^2
+            \dif \theta \\
+        &= \frac{1}{N} \int_{\delta \leq |\theta| \leq \pi}
+            \sbr{\frac{\sin \del{\frac{N \theta}{2}}}{\sin \del{\frac{\theta}{2}}}}^2
+            \dif \theta \\
+        &\leq \frac{1}{N} \int_{\delta \leq |\theta| \leq \pi}
+            \frac{1}{\sin^2 \del{\frac{\theta}{2}}}
+            \dif \theta \\
+        &\leq \frac{1}{N} \int_{\delta \leq |\theta| \leq \pi}
+            \frac{1}{\sin^2 \del{\frac{\delta}{2}}}
+            \dif \theta \\
+        &= \frac{2 (\pi - \delta)}{N \sin^2 \del{\frac{\delta}{2}}}
+        \to 0 \text{ as } N \to \infty
+    ,
+\end{align*}
+%
+where in the fourth line we used~\eqref{eq:431a} and in the fifth line
+we used~\eqref{eq:431b}.
+
+Finally, to show that $\sigma_N f = F_N * f$, 
+NEED TO DO THIS
 
 \newpage
 
