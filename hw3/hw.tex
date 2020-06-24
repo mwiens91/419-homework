@@ -423,8 +423,21 @@ Now to prove property (c), we have
 where in the fourth line we used~\eqref{eq:431a} and in the fifth line
 we used~\eqref{eq:431b}.
 
-Finally, to show that $\sigma_N f = F_N * f$, 
-NEED TO DO THIS
+Finally, to show $\sigma_N f = F_N * f$, we have that
+%
+\begin{align*}
+    (F_N * f) (\theta)
+        &= \frac{1}{2 \pi} \int_{- \pi}^\pi f(y) F_N(\theta - y) \dif y \\
+        &= \frac{1}{2 \pi} \int_{- \pi}^\pi f(y) \del{\frac{1}{N} \sum_{n = 0}^{N - 1} D_n (\theta - y)} \dif y \\
+        &= \frac{1}{N} \sum_{n = 0}^{N - 1} \frac{1}{2 \pi} \int_{- \pi}^\pi f(y) D_n (\theta - y) \dif y \\
+        &= \frac{1}{N} \sum_{n = 0}^{n - 1} \frac{1}{2 \pi} \int_{- \pi}^\pi f(y) \del{\sum_{|k| \leq n} e^{i k (\theta - y)}} \dif y \\
+        &= \frac{1}{N} \sum_{n = 0}^{n - 1} \sum_{|k| \leq n} e^{i k \theta} \frac{1}{2 \pi} \int_{- \pi}^\pi f(y) e^{- i k y} \dif y \\
+        &= \frac{1}{N} \sum_{n = 0}^{n - 1} \sum_{|k| \leq n} e^{i k \theta} \widehat{f}(k)  \\
+        &= \frac{1}{N} \sum_{n = 0}^{n - 1} S_n f(\theta) \\
+        &\eqqcolon \sigma_N f
+        .
+\end{align*}
+
 
 \newpage
 
@@ -433,7 +446,21 @@ and that $f = \sum_{k = 1}^\infty h_k$ in the $L^2$ sense. Show that
 $\sum_{k = 1}^\infty \langle g, h_k \rangle = \langle g, \sum_{k = 1}^\infty h_k \rangle$.
 
 \textit{Solution.}
-Hint: set $f_n = \sum_{k = 1}^n h_k$ in prop 5.15.
+Let $f_n = \sum_{k = 1}^n h_k$. Since each $h_k \in L^2(\T)$, we
+have that each $f_n \in L^2(\T)$; also, we have that $f_n \to f$ as
+$n \to \infty$. Therefore, using Proposition 5.15 from the course textbook,
+we have
+%
+\begin{align*}
+    \sum_{k = 1}^\infty \langle g, h_k \rangle
+        &= \lim_{n \to \infty} \sum_{k = 1}^n \langle g, h_k \rangle \\
+        &= \lim_{n \to \infty} \langle g, \sum_{k = 1}^n h_k \rangle \\
+        &= \lim_{n \to \infty} \langle g, f_n \rangle \\
+        &= \langle g, \lim_{n \to \infty} f_n \rangle \\
+        &= \langle g, f \rangle \\
+        &= \langle g, \sum_{k = 1}^\infty h_k \rangle
+        .
+\end{align*}
 
 \newpage
 
@@ -445,5 +472,40 @@ Show that $\langle f, g \rangle = \sum_{n \in \Z} a_n \overline{b}_n$.
 In particular, show that $\norm{f}^2_{L^2(\T)} = \sum_{n \in \Z} |a_n|^2$.
 
 \textit{Solution.}
+This is easy to show by remembering that
+%
+\begin{equation*}
+    \frac{1}{2 \pi} \int_{-\pi}^{\pi} e^{i (n - k) \theta} \dif \theta = \delta_{n, k}
+    .
+\end{equation*}
+%
+Let $f_n = \sum_{|k| < n} a_k e_k$, and $g_n = \sum_{|k| < n} b_k e_k$. Then,
+again using Proposition 5.15 from the course textbook we have
+%
+\begin{align*}
+    \langle f, g \rangle
+        &= \lim_{N \to \infty} \lim_{K \to \infty} \langle f_N, g_K \rangle \\
+        &= \lim_{N \to \infty} \lim_{K \to \infty} \frac{1}{2 \pi} \int_{- \pi}^\pi f_N(\theta) \overline{g_K(\theta)} \dif \theta \\
+        &= \lim_{N \to \infty} \lim_{K \to \infty} \frac{1}{2 \pi} \int_{- \pi}^\pi \del{\sum_{|n| \leq N} a_n e^{i n \theta}} \overline{\del{\sum_{|k| \leq K} b_k e^{i k \theta}}} \dif \theta \\
+        &= \lim_{N \to \infty} \lim_{K \to \infty} \frac{1}{2 \pi} \int_{- \pi}^\pi \del{\sum_{|n| \leq N} a_n e^{i n \theta}} \del{\sum_{|k| \leq K} \overline{b_{k}} e^{-i k \theta}} \dif \theta \\
+        &= \lim_{N \to \infty} \lim_{K \to \infty} \frac{1}{2 \pi} \int_{- \pi}^\pi \sum_{|n| \leq N} \sum_{k \leq K} a_n \overline{b_{k}} e^{i (n - k) \theta} \dif \theta \\
+        &= \lim_{N \to \infty} \lim_{K \to \infty} \sum_{|n| \leq N} \sum_{|k| \leq K} a_n \overline{b_{k}} \del{\frac{1}{2 \pi} \int_{- \pi}^\pi e^{i (n - k) \theta} \dif \theta} \\
+        &= \sum_{n \in \Z} \sum_{k \in \Z} a_n \overline{b_{k}} \del{\frac{1}{2 \pi} \int_{- \pi}^\pi e^{i (n - k) \theta} \dif \theta} \\
+        &= \sum_{n \in \Z} \sum_{k \in \Z} a_n \overline{b_{k}} \delta_{n, k} \\
+        &= \sum_{n \in \Z} a_n \overline{b_{n}}
+        .
+\end{align*}
+
+To show that $\norm{f}^2_{L^2(\T)} = \sum_{n \in \Z} |a_n|^2$, recall
+that for any $c \in \C$, $c \overline{c} = |c|^2$. Hence we have
+%
+\begin{align*}
+    \norm{f}^2_{L^2(\T)}
+        &= \del{\langle f, f \rangle^{1/2}}^2 \\
+        &= \langle f, f \rangle \\
+        &= \sum_{n \in \Z} a_n \overline{a_{n}} \\
+        &= \sum_{n \in \Z} |a_n|^2
+        .
+\end{align*}
 
 \end{document}
