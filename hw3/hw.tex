@@ -79,10 +79,10 @@ $[0, 1] \cap [t - 1, t]$, so
 \begin{align*}
     (f * f)(t)
         &= \frac{1}{2 \pi} \int_{[0, 1] \cap [t - 1, t]} \dif y \\
-        &= \frac{1}{2 \pi} \cdot
+        &=
         \begin{dcases}
-            t, & 0 \leq t \leq 1 \\
-            2 - t, & 1 < t \leq 2 \\
+            \frac{1}{2 \pi}t, & 0 \leq t \leq 1 \\
+            \frac{1}{2 \pi} (2 - t), & 1 < t \leq 2 \\
             0, & \text{otherwise}
         \end{dcases}
         .
@@ -104,8 +104,8 @@ Now we consider a number of cases. If $0 \leq t \leq 1$ then
 %
 \begin{equation*}
     (f * f * f)(t)
-        = \frac{1}{2 \pi} \int_{0}^t x \dif x
-        = \frac{1}{4 \pi} t^2
+        = \frac{1}{(2 \pi)^2} \int_{0}^t x \dif x
+        = \frac{1}{2 (2 \pi)^2} t^2
         .
 \end{equation*}
 %
@@ -114,14 +114,14 @@ If $1 < t \leq 2$ then
 \begin{equation*}
     (f * f * f)(t)
         =
-        \frac{1}{2 \pi}
+        \frac{1}{(2 \pi)^2}
         \del{
             \int_{t - 1}^1 x \dif x
             +
             \int_{1}^t 2 - x \dif x
         }
         =
-        \frac{1}{2 \pi}
+        \frac{1}{(2 \pi)^2}
         \del{
             - t^2 + 3 t - \frac{3}{2}
         }
@@ -133,10 +133,10 @@ If $2 < t \leq 3$ then
 \begin{equation*}
     (f * f * f)(t)
         =
-        \frac{1}{2 \pi}
+        \frac{1}{(2 \pi)^2}
         \int_{t - 1}^2 2 - x \dif x
         =
-        \frac{1}{4 \pi}
+        \frac{1}{2 (2 \pi)^2}
         (t - 3)^2
         .
 \end{equation*}
@@ -147,21 +147,22 @@ Hence, to summarize we have
     (f * f * f)(t)
         =
         \begin{dcases}
-            \frac{1}{4 \pi} t^2, & 0 \leq t \leq 1 \\
-            \frac{1}{2 \pi}
+            \frac{1}{8 \pi^2} t^2, & 0 \leq t \leq 1 \\
+            \frac{1}{4 \pi^2}
             \del{
                 - t^2 + 3 t - \frac{3}{2}
             }, & 1 < t \leq 2 \\
-            \frac{1}{4 \pi}
+            \frac{1}{8 \pi^2}
             (t - 3)^2, & 2 < t \leq 3 \\
             0, & \text{otherwise}
         \end{dcases}
         .
 \end{equation*}
 %
-We plot $f$ (scaled by $1 / 2 \pi$), $f * f$, and $f * f * f$ in Figure~\ref{fig:4-8}. We can
-see that convolutions add smoothness in this case. The code to produce
-this plot is available in Listing~\ref{lst:1}.
+We plot $f$ (scaled by $1 / (2 \pi)^2$), $f * f$ (scaled by
+$1 / 2 \pi$), and $f * f * f$ in Figure~\ref{fig:4-8}. We can see that
+convolutions add smoothness in this case. The code to produce this plot
+is available in Listing~\ref{lst:1}.
 
 \begin{figure}[!ht]
     \includegraphics[width=5in]{q48}
@@ -379,6 +380,7 @@ $x \in \R$
 \begin{equation}
     \sin^2(x) \leq 1
     \label{eq:431a}
+    .
 \end{equation}
 %
 The second fact is that for all $\theta \in [\delta, \pi]$,
