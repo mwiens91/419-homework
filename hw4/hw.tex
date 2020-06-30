@@ -1,0 +1,96 @@
+% Set up the document
+\documentclass{article}
+
+% Page size
+\usepackage[
+    letterpaper,]{geometry}
+\usepackage{changepage}
+
+% Lines between paragraphs
+\setlength{\parskip}{\baselineskip}
+\setlength{\parindent}{0pt}
+
+% Math
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{commath}
+
+% Number sets
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+% Links
+\usepackage{hyperref}
+
+% Page numbers at top right
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\renewcommand\headrulewidth{0pt}
+
+\begin{document}
+
+\textbf{MATH 419 homework 4} \\
+\textbf{Matt Wiens \#301294492} \\
+\textbf{2020-07-14}
+
+6.3. Verify that the set $\cbr{e_0, e_1, \ldots, e_{N - 1}}$
+is an orthonormal set in $\C^N$.
+
+\textit{Solution.}
+see hint in textbook
+
+\newpage
+
+6.13. Show that every basis $\cbr{v_1, v_2, \ldots, v_N}$ of
+$\C^N$, together with its dual basis $\cbr{w_1, w_2, \ldots, w_N}$,
+satisfies the following orthonormality condition:
+%
+\begin{equation*}
+    \langle v_k, w_j \rangle = \delta_{k, j}
+    .
+\end{equation*}
+%
+Furthermore, show that for every $v \in \C^N$,
+%
+\begin{equation*}
+    v
+    = \sum_{j = 1}^N \langle v, w_j \rangle v_j
+    = \sum_{j = 1}^N \langle v, v_j \rangle w_j
+    .
+\end{equation*}
+
+\textit{Solution.}
+
+\newpage
+
+6.20. Show that if $v, w \in \C^N$, then
+$\langle \widehat{v}, \widehat{w} \rangle = \langle v, w \rangle$.
+
+\textit{Solution.}
+
+\newpage
+
+6.33. Show that the Discrete Fourier Transform in $\C^N$ of
+the Fourier basis vector $e_j$ is given by the standard basis
+vector $s_j$; that is, $\widehat{e}_j = s_j$ for $0 \leq j \leq N - 1$.
+Start with the case of $N = 4$.
+
+\textit{Solution.}
+
+\newpage
+
+6.34. Verify that the Discrete Fourier Transform of the
+standard basis vector $s_j$ is the complex conjugate of the
+Fourier basis vector $e_j$; that is,
+$\widehat{s}_j = \overline{e_j}$.
+
+\textit{Solution.}
+
+\end{document}
