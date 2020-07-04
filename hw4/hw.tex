@@ -44,7 +44,55 @@
 is an orthonormal set in $\C^N$.
 
 \textit{Solution.}
-see hint in textbook
+To show that this set is orthonormal, fix any
+$m, n = 0, \ldots, N - 1$. We need to show that
+%
+\begin{equation*}
+    \langle e_m, e_n \rangle = \delta_{m n}
+    .
+\end{equation*}
+%
+Calculating this, we have
+%
+\begin{align*}
+    \langle e_m, e_n \rangle
+        &= \sum_{k = 0}^{N - 1} e_m(k) \overline{e_n(k)} \\
+        &= \sum_{k = 0}^{N - 1} \frac{1}{\sqrt{N}} \omega^{km} \frac{1}{\sqrt{N}} \overline{\omega^{kn}} \\
+        &= \frac{1}{N} \sum_{k = 0}^{N - 1} e^{i 2 \pi k m / N} e^{- i 2 \pi k n / N} \\
+        &= \frac{1}{N} \sum_{k = 0}^{N - 1} e^{i 2 \pi k (m - n) / N}
+        .
+\end{align*}
+%
+If $m = n$ then
+%
+\begin{equation*}
+    \langle e_m, e_n \rangle
+        = \frac{1}{N} \sum_{k = 0}^{N - 1} e^{i 2 \pi k (m - n) / N}
+        = \frac{1}{N} \sum_{k = 0}^{N - 1} 1
+        = 1
+        .
+\end{equation*}
+%
+If $m \neq n$ then we use the fact that the set
+%
+\begin{equation*}
+    \cbr{k (m - n) \bmod N: k = 0, \ldots, N - 1}
+    = \cbr{0, \ldots, N - 1}
+\end{equation*}
+%
+which means that
+%
+\begin{align*}
+    \langle e_m, e_n \rangle
+        &= \frac{1}{N} \sum_{k = 0}^{N - 1} e^{i 2 \pi k (m - n) / N} \\
+        &= \frac{1}{N} \sum_{k = 0}^{N - 1} e^{i 2 \pi k / N} \\
+        &= 0
+        .
+\end{align*}
+%
+In the last line we used that $e^{i 2 \pi k / N}$, for
+$k = 0, \ldots, N - 1$, are the $N$th roots of unity, and hence sum to
+zero.
 
 \newpage
 
@@ -53,7 +101,7 @@ $\C^N$, together with its dual basis $\cbr{w_1, w_2, \ldots, w_N}$,
 satisfies the following orthonormality condition:
 %
 \begin{equation*}
-    \langle v_k, w_j \rangle = \delta_{k, j}
+    \langle v_k, w_j \rangle = \delta_{k j}
     .
 \end{equation*}
 %
@@ -67,6 +115,50 @@ Furthermore, show that for every $v \in \C^N$,
 \end{equation*}
 
 \textit{Solution.}
+Following the notation used in the course textbook, let $B$ be the
+matrix whose columns are the vectors $v_1, \ldots, v_N$. Then its
+inverse $B^{-1}$ is the matrix whose rows are the vectors
+$\overline{w_1}, \ldots, \overline{w_N}$. Hence, because $B B^{-1} = I$,
+we can read off that for the diagonal entries of the identity matrix, we
+have
+%
+\begin{equation*}
+    1 = \sum_{n = 0}^{N - 1} v_k(n) \overline{w_k(n)} = \langle v_k, w_k \rangle
+    ;
+\end{equation*}
+%
+and for the off-diagonal entries,
+%
+\begin{equation*}
+    0 = \sum_{n = 0}^{N - 1} v_k(n) \overline{w_j(n)} = \langle v_k, w_j \rangle
+    ,
+\end{equation*}
+%
+where $k \neq j$. This shows that $\langle v_k, w_j \rangle = \delta_{k j}$.
+
+Now, let $v \in \C^N$. We need to show that the coefficients of $v$ in
+the $\cbr{v_1, \ldots, v_N}$ basis are given by $\langle v, w_j
+\rangle$. Let $x$ be the vector containing these coefficients. Then we
+have $v = B x$. Left-multiplying by $B^{-1}$ we have $B^{-1} v = x$,
+which tells us that
+%
+\begin{equation*}
+    x_j = \sum_{n = 0}^{N - 1} v(n) \overline{w_j(n)} = \langle v, w_j \rangle
+    .
+\end{equation*}
+%
+Hence $v = \sum_{j = 1}^N \langle v, w_j \rangle v_j$. Now we'll play a
+similar game to determine the coefficients of $v$ in the
+$\cbr{w_1, \ldots, w_N}$. Let $y$ be the vector containing these coefficients.
+Then we have $v = \overline{(B^{-1})^T} y$. Left multiplying by $\overline{B^T}$,
+we get $\overline{B^T} v = y$, and so
+%
+\begin{equation*}
+    y_j = \sum_{n = 0}^{N - 1} v(n) \overline{v_j(n)} = \langle v, v_j \rangle
+    .
+\end{equation*}
+%
+Thus we also have $v = \sum_{j = 1}^N \langle v, v_j \rangle w_j$.
 
 \newpage
 
@@ -74,6 +166,19 @@ Furthermore, show that for every $v \in \C^N$,
 $\langle \widehat{v}, \widehat{w} \rangle = \langle v, w \rangle$.
 
 \textit{Solution.}
+Let $T = 1 / \sqrt{N} F_N$, and denote $T^*$ its conjugate transpose.
+From linear algebra we know for any $v, w \in \C^N$,
+$\langle T^* v, w \rangle = \langle v, T w \rangle$, so
+using the result from Exercise 6.19 in the course textbook that
+$T^* T = I$, we have
+%
+\begin{equation*}
+    \langle v, w \rangle
+    = \langle T^* T v, w \rangle
+    = \langle T v, T w \rangle
+    = \langle \widehat{v}, \widehat{w} \rangle
+    .
+\end{equation*}
 
 \newpage
 
@@ -83,6 +188,14 @@ vector $s_j$; that is, $\widehat{e}_j = s_j$ for $0 \leq j \leq N - 1$.
 Start with the case of $N = 4$.
 
 \textit{Solution.}
+For any $N$ we have, for $j = 1, \ldots, N$,
+%
+\begin{equation*}
+    \widehat{e_j}(n) = \langle e_j, e_n \rangle = \delta_{j n} = s_j(n)
+    .
+\end{equation*}
+%
+Hence $\widehat{e_j} = s_j$. In particular, this also holds for $N = 4$.
 
 \newpage
 
@@ -92,5 +205,17 @@ Fourier basis vector $e_j$; that is,
 $\widehat{s}_j = \overline{e_j}$.
 
 \textit{Solution.}
+For any $N$ we have, for $j = 1, \ldots, N$,
+%
+\begin{equation*}
+    \widehat{s_j}(n)
+    = \frac{1}{\sqrt{N}} \sum_{k = 0}^{N - 1} \delta_{j k} \omega^{-k n}
+    = \frac{1}{\sqrt{N}} \omega^{-j n}
+    = \overline{\frac{1}{\sqrt{N}} \omega^{j n}}
+    = \overline{e_j}(n)
+    .
+\end{equation*}
+%
+Thus, we have that $\widehat{s}_j = \overline{e_j}$.
 
 \end{document}
