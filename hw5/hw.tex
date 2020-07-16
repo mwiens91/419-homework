@@ -46,9 +46,96 @@
 7.3. Show that if $f, g \in \fS(\R)$, then the products
 $fg, x^kf(x)$ for all $k \geq 0$, and $e^{-2 \pi i x \xi}f(x)$
 for all $\xi \in \R$ belong to $\fS(\R)$. Show also that the
-derivative $f^{(l)}$ belong to $\fS(\R)$, for all $l \geq 0$.
+derivative $f^{(l)}$ belongs to $\fS(\R)$, for all $l \geq 0$.
 
 \textit{Solution.}
+Recall that for a function $f$ to be a member of the Schwartz
+class, it must be infinitely differentiable and must satisfy
+%
+\begin{equation}
+    \lim_{|x| \to \infty} |x|^k |f^{(l)}(x)| = 0 \quad \text{for all $k, l \geq 0$}
+    .
+    \label{eq:73-schwartz}
+\end{equation}
+%
+Let $f, g \in \fS(\R)$. Recall that if we have two functions $f_1, f_2:
+\R \to \C$, where $f_1$ is $k$ times differentiable and $f_2$ is $l$
+times differentiable, then $f_1 f_2$ is $\min \{k, l\}$ times
+differentiable; if both $k, l = \infty$ (that is, both $f_1$ and $f_2$
+are infinitely differentiable), then $f_1 f_2$ is infinitely
+differentiable. Hence, for any $k \geq 0$, $\xi \in \R$, since
+$f, g, x^k, e^{-2 \pi i x \xi}$ are infinitely differentiable,
+so are $fg, x^k f(x), e^{- 2 \pi i x \xi} f(x)$.
+
+We will now show that $fg, x^k f(x), e^{- 2 \pi i x \xi} f(x)$
+satisfy~\eqref{eq:73-schwartz}. For $fg$, we have for any $n, l \geq 0$,
+%
+\begin{align*}
+    \lim_{|x| \to \infty} |x|^n |(fg)^{(l)}(x)|
+        &= \lim_{|x| \to \infty} |x|^n \envert[4]{\sum_{j = 0}^l \binom{l}{j} f^{(l - j)}(x) g^{(l)}(x)} \\
+        &\leq \lim_{|x| \to \infty} |x|^n \sum_{j = 0}^l \binom{l}{j} \envert{f^{(l - j)}(x) g^{(l)}(x)} \\
+        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} |x|^n \envert{f^{(l - j)}(x) g^{(l)}(x)} \\
+        &\leq \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} |x|^n |x|^n \envert{f^{(l - j)}(x) g^{(l)}(x)} \\
+        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} \del{|x^|n |f^{(l - j)}(x)|} \del{|x|^n |g^{(l)}(x)|} \\
+        &= \sum_{j = 0}^l \binom{l}{j} \del{\lim_{|x| \to \infty} |x|^n |f^{(l - j)}(x)|} \del{\lim_{|x| \to \infty} |x|^n |g^{(l)}(x)|} \\
+        &= \sum_{j = 0}^l \binom{l}{j} 0 \cdot 0 \\
+        &= 0
+    .
+\end{align*}
+%
+In the first line of the above calculation we used the ``general Leibniz
+rule;'' in the sixth line we used that we can commute limits with
+function multiplication provided that the limit of each function exists.
+
+For $x^k f(x)$ we have for any $n, l \geq 0$,
+%
+\begin{align*}
+    \lim_{|x| \to \infty} |x|^n |(x^k f)^{(l)}(x)|
+        &= \lim_{|x| \to \infty} |x|^n \envert[4]{\sum_{j = 0}^l \binom{l}{j} (x^k)^{(j - l)} f^{(l)}(x)} \\
+        &\leq \lim_{|x| \to \infty} |x|^n \sum_{j = 0}^l \binom{l}{j} \envert{(x^k)^{(j - l)} f^{(l)}(x)} \\
+        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} |x|^n \envert{(x^k)^{(j - l)} f^{(l)}(x)} \\
+        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} |x|^n \envert{C_j x^{k - (j - l)} f^{(l)}(x)} \\
+        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} C_j |x|^{n + k - (j - l)} |f^{(l)}(x)|
+        ,
+\end{align*}
+%
+where
+%
+\begin{equation*}
+    C_j =
+    \begin{dcases}
+        \frac{k!}{(k - (j - l))!}, & j - l \leq k, \\
+        0, & j - l > k.
+    \end{dcases}
+\end{equation*}
+%
+Now, for each limit
+%
+\begin{equation*}
+    \lim_{|x| \to \infty} C_j |x|^{n + k - (j - l)} |f^{(l)}(x)|
+    ,
+\end{equation*}
+%
+if $j - l > k$ then $C_j = 0$ and hence the limit is zero. If
+$j - l \leq k$, then $k - (j - l) \geq 0$ and hence $n + k - (j - l) \geq 0$;
+because $f$ is in the Schwartz class, the limit must also be zero in this case.
+Therefore the limit is zero for all $j$ and hence, referring back to our previous
+calculation, we have
+%
+\begin{equation*}
+    \lim_{|x| \to \infty} |x|^n |(x^k f)^{(l)}(x)| = 0
+    .
+\end{equation*}
+
+For $e^{- 2 \pi i x \xi} f(x)$ we have for any $n, l \geq 0$,
+%
+\begin{align*}
+    \lim_{|x| \to \infty} |x|^n |(e^{- 2 \pi i x \xi} f)^{(l)}(x)|
+        &= \lim_{|x| \to \infty} |x|^n \envert[4]{\sum_{j = 0}^l \binom{l}{j} (e^{- 2 \pi i x \xi})^{(j - l)} f^{(l)}(x)} \\
+        &= \lim_{|x| \to \infty} |x|^n \envert[4]{\sum_{j = 0}^l \binom{l}{j} (- 2 \pi i x \xi)^{j - l} e^{- 2 \pi i x \xi}) f^{(l)}(x)} \\
+\end{align*}
+
+FIX J - L -> L - J
 
 \newpage
 
