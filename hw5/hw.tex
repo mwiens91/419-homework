@@ -27,6 +27,15 @@
 % Misc sets
 \newcommand{\fS}{\mathcal{S}}
 
+% Operator
+\newcommand{\F}{\mathcal{F}}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\length}{length}
+
+% convenience
+\newcommand{\jp}{j^\prime}
+\newcommand{\kp}{k^\prime}
+
 % Links
 \usepackage{hyperref}
 
@@ -50,7 +59,7 @@ derivative $f^{(l)}$ belongs to $\fS(\R)$, for all $l \geq 0$.
 
 \textit{Solution.}
 Recall that for a function $f$ to be a member of the Schwartz
-class, it must be infinitely differentiable and must satisfy
+class, it must be infinitely differentiable and satisfy
 %
 \begin{equation}
     \lim_{|x| \to \infty} |x|^k |f^{(l)}(x)| = 0 \quad \text{for all $k, l \geq 0$}
@@ -72,12 +81,12 @@ satisfy~\eqref{eq:73-schwartz}. For $fg$, we have for any $n, l \geq 0$,
 %
 \begin{align*}
     \lim_{|x| \to \infty} |x|^n |(fg)^{(l)}(x)|
-        &= \lim_{|x| \to \infty} |x|^n \envert[4]{\sum_{j = 0}^l \binom{l}{j} f^{(l - j)}(x) g^{(l)}(x)} \\
-        &\leq \lim_{|x| \to \infty} |x|^n \sum_{j = 0}^l \binom{l}{j} \envert{f^{(l - j)}(x) g^{(l)}(x)} \\
-        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} |x|^n \envert{f^{(l - j)}(x) g^{(l)}(x)} \\
-        &\leq \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} |x|^n |x|^n \envert{f^{(l - j)}(x) g^{(l)}(x)} \\
-        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} \del{|x^|n |f^{(l - j)}(x)|} \del{|x|^n |g^{(l)}(x)|} \\
-        &= \sum_{j = 0}^l \binom{l}{j} \del{\lim_{|x| \to \infty} |x|^n |f^{(l - j)}(x)|} \del{\lim_{|x| \to \infty} |x|^n |g^{(l)}(x)|} \\
+        &= \lim_{|x| \to \infty} |x|^n \envert[4]{\sum_{j = 0}^l \binom{l}{j} f^{(l - j)}(x) g^{(j)}(x)} \\
+        &\leq \lim_{|x| \to \infty} |x|^n \sum_{j = 0}^l \binom{l}{j} \envert{f^{(l - j)}(x) g^{(j)}(x)} \\
+        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} |x|^n \envert{f^{(l - j)}(x) g^{(j)}(x)} \\
+        &\leq \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} |x|^n |x|^n \envert{f^{(l - j)}(x) g^{(j)}(x)} \\
+        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} \del{|x|^n |f^{(l - j)}(x)|} \del{|x|^n |g^{(j)}(x)|} \\
+        &= \sum_{j = 0}^l \binom{l}{j} \del{\lim_{|x| \to \infty} |x|^n |f^{(l - j)}(x)|} \del{\lim_{|x| \to \infty} |x|^n |g^{(j)}(x)|} \\
         &= \sum_{j = 0}^l \binom{l}{j} 0 \cdot 0 \\
         &= 0
     .
@@ -91,11 +100,11 @@ For $x^k f(x)$ we have for any $n, l \geq 0$,
 %
 \begin{align*}
     \lim_{|x| \to \infty} |x|^n |(x^k f)^{(l)}(x)|
-        &= \lim_{|x| \to \infty} |x|^n \envert[4]{\sum_{j = 0}^l \binom{l}{j} (x^k)^{(j - l)} f^{(l)}(x)} \\
-        &\leq \lim_{|x| \to \infty} |x|^n \sum_{j = 0}^l \binom{l}{j} \envert{(x^k)^{(j - l)} f^{(l)}(x)} \\
-        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} |x|^n \envert{(x^k)^{(j - l)} f^{(l)}(x)} \\
-        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} |x|^n \envert{C_j x^{k - (j - l)} f^{(l)}(x)} \\
-        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} C_j |x|^{n + k - (j - l)} |f^{(l)}(x)|
+        &= \lim_{|x| \to \infty} |x|^n \envert[4]{\sum_{j = 0}^l \binom{l}{j} (x^k)^{(l - j)} f^{(j)}(x)} \\
+        &\leq \lim_{|x| \to \infty} |x|^n \sum_{j = 0}^l \binom{l}{j} \envert{(x^k)^{(l - j)} f^{(j)}(x)} \\
+        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} |x|^n \envert{(x^k)^{(l - j)} f^{(j)}(x)} \\
+        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} |x|^n \envert{C_j x^{k - (l - j)} f^{(j)}(x)} \\
+        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} C_j |x|^{n + k - (l - j)} |f^{(j)}(x)|
         ,
 \end{align*}
 %
@@ -104,20 +113,20 @@ where
 \begin{equation*}
     C_j =
     \begin{dcases}
-        \frac{k!}{(k - (j - l))!}, & j - l \leq k, \\
-        0, & j - l > k.
+        \frac{k!}{(k - (l - j))!}, & l - j \leq k, \\
+        0, & l - j > k.
     \end{dcases}
 \end{equation*}
 %
 Now, for each limit
 %
 \begin{equation*}
-    \lim_{|x| \to \infty} C_j |x|^{n + k - (j - l)} |f^{(l)}(x)|
+    \lim_{|x| \to \infty} C_j |x|^{n + k - (l - j)} |f^{(j)}(x)|
     ,
 \end{equation*}
 %
-if $j - l > k$ then $C_j = 0$ and hence the limit is zero. If
-$j - l \leq k$, then $k - (j - l) \geq 0$ and hence $n + k - (j - l) \geq 0$;
+if $l - j > k$ then $C_j = 0$ and hence the limit is zero. If
+$l - j \leq k$, then $k - (l - j) \geq 0$ and hence $n + k - (l - j) \geq 0$;
 because $f$ is in the Schwartz class, the limit must also be zero in this case.
 Therefore the limit is zero for all $j$ and hence, referring back to our previous
 calculation, we have
@@ -131,17 +140,152 @@ For $e^{- 2 \pi i x \xi} f(x)$ we have for any $n, l \geq 0$,
 %
 \begin{align*}
     \lim_{|x| \to \infty} |x|^n |(e^{- 2 \pi i x \xi} f)^{(l)}(x)|
-        &= \lim_{|x| \to \infty} |x|^n \envert[4]{\sum_{j = 0}^l \binom{l}{j} (e^{- 2 \pi i x \xi})^{(j - l)} f^{(l)}(x)} \\
-        &= \lim_{|x| \to \infty} |x|^n \envert[4]{\sum_{j = 0}^l \binom{l}{j} (- 2 \pi i x \xi)^{j - l} e^{- 2 \pi i x \xi}) f^{(l)}(x)} \\
+        &= \lim_{|x| \to \infty} |x|^n \envert[4]{\sum_{j = 0}^l \binom{l}{j} (e^{- 2 \pi i x \xi})^{(l - j)} f^{(j)}(x)} \\
+        &\leq \lim_{|x| \to \infty} |x|^n \sum_{j = 0}^l \binom{l}{j} \envert{(e^{- 2 \pi i x \xi})^{(l - j)} f^{(j)}(x)} \\
+        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} |x|^n \envert{(e^{- 2 \pi i x \xi})^{(l - j)} f^{(j)}(x)} \\
+        &= \sum_{j = 0}^l \binom{l}{j} \lim_{|x| \to \infty} |x|^n \envert{(- 2 \pi i x \xi)^{l - j} e^{- 2 \pi i x \xi} f^{(j)}(x)} \\
+        &= \sum_{j = 0}^l \binom{l}{j} (- 2 \pi i \xi)^{l - j} \lim_{|x| \to \infty} |x|^{n + l - j} |f^{(j)}(x)| \\
+        &= \sum_{j = 0}^l \binom{l}{j} (- 2 \pi i \xi)^{l - j} \cdot 0 \\
+        &= 0
+        .
 \end{align*}
+%
+To summarize what we've done so far, since we have shown that
+$fg, x^k f(x), e^{- 2 \pi i x \xi} f(x)$ are infinitely differentiable
+and satisfy~\eqref{eq:73-schwartz}, we have shown that they are members
+of $\fS(\R)$.
 
-FIX J - L -> L - J
+Lastly, we need to show that if $f \in \fS(\R)$ then the derivative
+$f^{(l)}$ also belongs to $\fS(\R)$, for all $l \geq 0$. That $f^{(l)}$
+for all $l \geq 0$ is infinitely differentiable is trivial. To show that
+$f^{(l)}$ satisfies~\eqref{eq:73-schwartz}, we have for all
+$n, k \geq 0$
+%
+\begin{equation*}
+    \lim_{|x| \to \infty} |x|^n |(f^{(l)})^{(k)}(x)|
+    = \lim_{|x| \to \infty} |x|^n |f^{(l + k)}(x)|
+    = 0
+    .
+\end{equation*}
+%
+Thus $f^{(l)} \in \fS(\R)$ for all $l \geq 0$.
+
 
 \newpage
 
 7.13. Verify properties (a)--(g) in Table 7.1 of the course textbook.
 
 \textit{Solution.}
+For this problem, fix any $f, g \in \fS(\R)$, $a, b \in \C$, and
+$h, s \in \R$. We first show that the Fourier transform on $\fS(\R)$ is
+linear (hereafter we will refer to the Fourier transform on
+$\fS(\R)$ as the ``Fourier transform'' for conciseness):
+%
+\begin{align*}
+    \widehat{af + b g}(\xi)
+        &= \int_{\R} (af + b g)(x) e^{- 2 \pi i \xi x} \dif x \\
+        &=
+        a \int_{\R} f(x) e^{- 2 \pi i \xi x} \dif x
+        +
+        b \int_{\R} g(x) e^{- 2 \pi i \xi x} \dif x
+        \\
+        &= a \widehat{f}(\xi) + b \widehat{g}(\xi)
+        .
+\end{align*}
+%
+Now we'll show that the Fourier transform turns translation in the
+spatial domain into modulation in the frequency domain:
+%
+\begin{align*}
+    \widehat{\tau_h f}(\xi)
+        &= \int_{\R} \tau_h f(x) e^{- 2 \pi i \xi x} \dif x \\
+        &= \int_{\R} f(x - h) e^{- 2 \pi i \xi x} \dif x \\
+        &= \int_{\R} f(y) e^{- 2 \pi i \xi (y + h)} \dif y \\
+        &= e^{2 \pi i (-h) \xi} \int_{\R} f(y) e^{- 2 \pi i \xi y} \dif y \\
+        &= e^{2 \pi i (-h) \xi} \widehat{f}(\xi) \\
+        &= M_{-h} \widehat{f}(\xi)
+        ,
+\end{align*}
+%
+where in the third line we used the change of variable $y = x - h$.
+
+Now we'll show that the Fourier transform turns modulation in the
+spatial domain into translation in the frequency domain:
+%
+\begin{align*}
+    \widehat{M_h f}(\xi)
+        &= \int_{\R} M_h f(x) e^{- 2 \pi i \xi x} \dif x \\
+        &= \int_{\R} e^{2 \pi i h x} f(x) e^{- 2 \pi i \xi x} \dif x \\
+        &= \int_{\R} f(x) e^{- 2 \pi i (\xi - h) x} \dif x \\
+        &= \widehat{f}(\xi - h) \\
+        &= \tau_h \widehat{f}(\xi)
+        .
+\end{align*}
+%
+Next we'll show that the Fourier transform turns dilation in the
+spatial domain into ``inverse dilation'' in the frequency domain:
+%
+\begin{align*}
+    \widehat{D_s f}(\xi)
+        &= \int_{\R} D_s f(x) e^{- 2 \pi i \xi x} \dif x \\
+        &= \int_{\R} s f(s x) e^{- 2 \pi i \xi x} \dif x \\
+        &= \int_{\R} f(y) e^{- 2 \pi i \frac{\xi}{s} y} \dif y \\
+        &= \widehat{f}(s^{-1} \xi) \\
+        &= s D_{s^{-1}} \widehat{f}(\xi)
+        ,
+\end{align*}
+%
+where in the third line we used the change of variable $y = s x$.
+
+Now we'll show that the Fourier transform commutes with reflection:
+%
+\begin{align*}
+    \widehat{\widetilde{f}}(\xi)
+        &= \int_{\R} \widetilde{f}(x) e^{- 2 \pi i \xi x} \dif x \\
+        &= \int_{\R} f(-x) e^{- 2 \pi i \xi x} \dif x \\
+        &= \int_{\R} f(y) e^{- 2 \pi i (- \xi) y} \dif y \\
+        &= \widehat{f}(- \xi) \\
+        &= \widetilde{\widehat{f}}(\xi)
+        ,
+\end{align*}
+%
+where in the third line we used the change of variable $y = - x$.
+
+Next we'll show that the Fourier transform turns conjugation in the
+spatial domain into conjugate reflection in the frequency domain:
+%
+\begin{align*}
+    \widehat{\overline{f}}(\xi)
+        &= \int_{\R} \overline{f}(x) e^{- 2 \pi i \xi x} \dif x \\
+        &= \int_{\R} \overline{f(x)} e^{- 2 \pi i \xi x} \dif x \\
+        &= \overline{\int_{\R} f(x) \overline{e^{- 2 \pi i \xi x}} \dif x} \\
+        &= \overline{\int_{\R} f(x) e^{- 2 \pi i (- \xi) x} \dif x} \\
+        &= \overline{\widehat{f}(-\xi)}
+        .
+\end{align*}
+%
+Finally, we show that the Fourier transform turns differentiation in
+the spatial domain into polynomial multiplication in the frequency domain:
+%
+\begin{align*}
+    \widehat{f^\prime}(\xi)
+        &= \int_{\R} f^\prime(x) e^{- 2 \pi i \xi x} \dif x \\
+        &=
+        \lim_{l \to \infty}
+        \del{
+        f(l) e^{- 2 \pi i \xi l}
+        -
+        f(-l) e^{- 2 \pi i \xi (-l)}
+        }
+        - (- 2 \pi i \xi) \int_{\R} f(x) e^{- 2 \pi i \xi x} \dif x \\
+        &= 2 \pi i \xi \int_{\R} f(x) e^{- 2 \pi i \xi x} \dif x \\
+        &= 2 \pi i \xi \widehat{f}(\xi)
+        ,
+\end{align*}
+%
+where in the second line we used integration by parts, and in the third
+line used that Schwartz class functions decay to zero as their argument
+goes to infinity and that complex exponentials are bounded.
 
 \newpage
 
@@ -149,6 +293,22 @@ FIX J - L -> L - J
 to find $\widehat{\psi_{j,k}}(\xi)$, for $\psi \in L^2(\R)$.
 
 \textit{Solution.}
+For this problem we'll use the notation $\F \cbr{f} \coloneqq \widehat{f}$. Fix
+any $\psi \in L^2(\R)$. Using Table 7.1 (which was shown in the context
+of the Schwartz class, but the properties we'll use here work for
+$L^2(\R)$ as well), we have
+%
+\begin{align*}
+    \F \cbr{\psi_{j,k}}(\xi)
+        &= \F \cbr{2^{j / 2} \psi(2^jx - k)}(\xi) \\
+        &= 2^{j / 2} \F \cbr{\psi(2^jx - k)}(\xi) \\
+        &= 2^{j / 2} \F \cbr{\tau_k \psi(2^jx)}(\xi) \\
+        &= 2^{j / 2} e^{- 2 \pi i k \xi} \F \cbr{\psi(2^jx)}(\xi) \\
+        &= 2^{j / 2} e^{- 2 \pi i k \xi} \F \cbr{2^{-j} D_{2^j} \psi(x)}(\xi) \\
+        &= 2^{- j / 2} e^{- 2 \pi i k \xi} \F \cbr{D_{2^j} \psi(x)}(\xi) \\
+        &= 2^{- j / 2} e^{- 2 \pi i k \xi} \F \cbr{\psi}(2^{-j} \xi)
+        .
+\end{align*}
 
 \newpage
 
@@ -159,5 +319,105 @@ $\langle h_{j,k}, h_{j^\prime,k^\prime} \rangle = 0$ otherwise. First show that
 the functions $h_{j,k}$ have zero integral: $\int h_{j,k} = 0$.
 
 \textit{Solution.}
+Recall that the Haar wavelet $h(x)$ is given by
+%
+\begin{equation}
+    h(x) \coloneqq - \chi_{[0, 1/2)}(x) + \chi_{[1/2, 1)}(x)
+    \label{eq:920-mother}
+    .
+\end{equation}
+%
+We'll first show that the functions $h_{j,k}$ have zero integral:
+%
+\begin{align*}
+    \int_{\R} h_{j,k}(x) \dif x
+        &= \int_{\R} 2^{j / 2} h(2^j x - k) \dif x \\
+        &= 2^{j / 2} \int_{\R} (- \chi_{[0, 1/2)} + \chi_{[1/2, 1)}) (2^j x - k) \dif x \\
+        &= 2^{- j / 2} \int_{\R} (- \chi_{[0, 1/2)} + \chi_{[1/2, 1)}) (y) \dif y \\
+        &= 2^{- j / 2} \del{- \int_0^{1/2} \dif y + \int_{1/2}^1 \dif y} \\
+        &= 0
+        ,
+\end{align*}
+%
+where in the third line we used the change of variable $y = 2^j x - k$.
+
+Now, let $j, k, \jp, \kp \in \Z$. We want to show that
+%
+\begin{equation}
+    \langle h_{j, k}, h_{\jp, \kp} \rangle = \delta_{j, \jp} \delta_{k, \kp}
+    \label{eq:920-goal}
+    .
+\end{equation}
+%
+Noting that
+%
+\begin{equation}
+    \chi_{[a, b)}(2^j x - k)
+        = \chi_{[2^{-j} (k + a), 2^{-j}(k + b))}(x)
+        \label{eq:920-fuck}
+        ,
+\end{equation}
+%
+we see that
+%
+\begin{equation*}
+    \supp(h_{j, k}) = [2^{-j} k, 2^{-j}(k + 1)) \eqqcolon I_{j, k}
+    .
+\end{equation*}
+%
+Thus, for $j = \jp$, $k = \kp$, we have
+%
+\begin{equation*}
+    \langle h_{j, k}, h_{\jp, \kp} \rangle
+        = \int_{\R} h_{j, k}^2 (x) \dif x
+        = 2^j \int_{I_{j, k}} (\pm 1)^2 \dif x
+        = 2^j \cdot 2^{-j}
+        = 1
+        .
+\end{equation*}
+%
+We now consider the cases when $k \neq \kp$. If $j = \jp$, then
+$\supp(h_{j, k}) \cap \supp(h_{\jp, \kp}) = \emptyset$ (the intervals
+have the same width, but they are disjoint) and so
+%
+\begin{equation*}
+    \langle h_{j, k}, h_{\jp, \kp} \rangle
+    = \int_{\R} h_{j, k}(x) h_{\jp, \kp}(x) \dif x
+        = 0
+        .
+\end{equation*}
+%
+If $j \neq \jp$, then without loss of generality take $j > \jp$.
+We either have
+%
+\begin{equation*}
+    \supp(h_{j, k}) \cap \supp(h_{\jp, \kp}) = \emptyset
+    ,
+\end{equation*}
+%
+which, again, trivially implies $\langle h_{j, k}, h_{\jp, \kp} \rangle = 0$,
+or we have
+%
+\begin{equation*}
+    \supp(h_{j, k}) \subset \supp(h_{\jp, \kp})
+    .
+\end{equation*}
+%
+Note that the support of $h_{j, k}$ is at least half the size of the support
+of $h_{\jp, \kp}$, and, furthermore, must lie in either the ``negative side''
+of the Haar wave or the ``positive side'' (this can be seen by
+examining~\eqref{eq:920-mother} together with~\eqref{eq:920-fuck}).
+Thus we have, using our earlier result that $\int h_{j, k} = 0$,
+%
+\begin{equation*}
+    \langle h_{j, k}, h_{\jp, \kp} \rangle
+    = \int_{\R} h_{j, k}(x) h_{\jp, \kp}(x) \dif x
+    = \pm \int_{I_{j, k}} h_{j, k}(x) \dif x
+    = \pm \int_{\R} h_{j, k}(x) \dif x
+    = 0
+    .
+\end{equation*}
+%
+Having now considered all possible cases, we have proven~\eqref{eq:920-goal}.
 
 \end{document}
