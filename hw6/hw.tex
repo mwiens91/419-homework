@@ -1,0 +1,138 @@
+% Set up the document
+\documentclass{article}
+
+% Page size
+\usepackage[
+    letterpaper,]{geometry}
+\usepackage{changepage}
+
+% Lines between paragraphs
+\setlength{\parskip}{\baselineskip}
+\setlength{\parindent}{0pt}
+
+% Math
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{commath}
+
+% Number sets
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+% Script chars
+\newcommand{\D}{\mathcal{D}}
+
+% Links
+\usepackage{hyperref}
+
+% Page numbers at top right
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\renewcommand\headrulewidth{0pt}
+
+\begin{document}
+
+\textbf{MATH 419 homework 6} \\
+\textbf{Matt Wiens \#301294492} \\
+\textbf{2020-08-11}
+
+9.32. Verify that $P_j f(x) = \sum_{I \in \D_j} m_I f \chi_I (x)$.
+
+\textit{Solution.}
+Fix any $x$, and let $j$ be the unique index such that $x \in I_j$.
+Then
+%
+\begin{equation*}
+    \sum_{I \in \D_j} m_I f \chi_I (x)
+        = m_{I_j} f
+        = \frac{1}{|I_j|} \int_{I_j} f(t) \dif t
+        \eqqcolon P_j f(x)
+        .
+\end{equation*}
+%
+Hence $P_j f(x) = \sum_{I \in \D_j} m_I f \chi_I (x)$.
+
+\newpage
+
+9.34. Show that $m_I f = (m_{I_l} f + m_{I_r} f) / 2$.
+
+\textit{Solution.}
+First, note that
+%
+\begin{equation*}
+    |I_l| = |I_r| = \frac{|I|}{2}
+    .
+\end{equation*}
+%
+Using this, we have that
+%
+\begin{align*}
+    m_{I} f
+        &\coloneqq \frac{1}{|I|} \int_{I} f(t) \dif t \\
+        &= \frac{1}{|I|}
+        \del{
+        \int_{I_l} f(t) \dif t
+        +
+        \int_{I_r} f(t) \dif t
+        } \\
+        &= \frac{1}{|I|} (|I_l| m_{I_l} f + |I_r| m_{I_r} f) \\
+        &= \del{\frac{|I_l|}{|I|} m_{I_l} f + \frac{|I_r|}{|I|} m_{I_r} f} \\
+        &= \del{\frac{1}{2} m_{I_l} f + \frac{1}{2} m_{I_r} f} \\
+        &= \frac{1}{2} \del{m_{I_l} f + m_{I_r} f}
+        .
+\end{align*}
+
+\newpage
+
+9.37. Use Theorem 9.36 (from the course textbook) to show that
+if $f \in L^2(\R)$ is orthogonal to all Haar functions, then $f$
+must be zero in $L^2(\R)$.
+
+\textit{Solution.}
+Suppose that for all $I \in \D$ we have that $\langle f, h_I \rangle = 0$.
+Then we have that for any $x \in \R$,
+%
+\begin{equation*}
+    \sum_{I \in \D} \langle f, h_I \rangle h_I(x) = 0
+    .
+\end{equation*}
+%
+From the course textbook we have that this is equivalent to
+%
+\begin{equation}
+    \lim_{N \to \infty} P_N f(x) - \lim_{M \to -\infty} P_M f(x) = 0
+    \label{eq:397-i}
+    .
+\end{equation}
+%
+From Theorem 9.36, we know that for any $f \in L^2(\R)$,
+%
+\begin{equation*}
+    \lim_{M \to - \infty} \norm{P_M f}_2 = 0,
+\end{equation*}
+%
+so~\eqref{eq:397-i} reduces to
+%
+\begin{equation}
+    \lim_{N \to \infty} P_N f(x) = 0
+    \label{eq:397-ii}
+    .
+\end{equation}
+%
+Given that Theorem 9.36 also tells us that
+%
+\begin{equation*}
+    \lim_{N \to - \infty} \norm{P_M f - f}_2 = 0,
+\end{equation*}
+%
+using that~\eqref{eq:397-ii} holds for all $x \in \R$, we identify $f$
+with $0 \in L^2(\R)$.
+
+\end{document}
